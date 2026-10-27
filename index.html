@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikhil — Backend / SDE Engineer</title>
+<meta name="description" content="Portfolio of Nikhil — B.Tech CS student, backend engineer in training, competitive programmer.">
+
+<!-- ============================================================
+  CUSTOMIZE ME: search this file for "EDIT:" comments — every
+  placeholder (email, GitHub username, resume link, project links)
+  is flagged that way. See README.md for the full checklist.
+============================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Scroll progress — fills as you move through the page -->
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- Boot sequence: plays once on load, then fades out -->
+<div id="boot-screen" aria-hidden="true">
+  <div class="boot-scanline"></div>
+  <pre class="mono boot-text" id="boot-text"></pre>
+</div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="statusbar">
+  <div class="statusbar-inner">
+    <a href="#home" class="brand mono">nikhil<span class="accent-teal">@</span>console</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <span class="nav-indicator" id="nav-indicator" aria-hidden="true"></span>
+    </nav>
+    <div class="statusbar-right">
+      <span class="mono clock" id="clock" aria-hidden="true"></span>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme" aria-pressed="false">
+        <span class="theme-toggle-dot"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section id="home" class="hero">
+    <div class="container hero-grid" id="hero-grid">
+      <div class="hero-left">
+        <p class="mono eyebrow-line"><span class="dot dot-live"></span>status: <span id="status-typed"></span><span class="caret">_</span></p>
+        <h1 class="hero-name">Nikhil</h1>
+        <p class="hero-role">Backend / SDE engineer-in-training — B.Tech CS, CVR College of Engineering, Hyderabad</p>
+        <p class="hero-desc">I build backend systems and dev tooling, and spend my spare cycles racing the clock on Codeforces. Currently deep in placement prep for SDE &amp; backend roles, with AI/ML as a strong second track.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View projects</a>
+          <!-- EDIT: replace resume.pdf with your actual resume file in /assets -->
+          <a href="assets/resume.pdf" class="btn btn-ghost" download>Download résumé ↓</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="panel-frame telemetry-panel">
+          <div class="frame-corner tl"></div><div class="frame-corner tr"></div>
+          <div class="frame-corner bl"></div><div class="frame-corner br"></div>
+
+          <div class="telemetry-header">
+            <span class="mono telemetry-title">SESSION REPLAY</span>
+            <span class="mono telemetry-phase" id="phase-label">FOUNDATIONS</span>
+          </div>
+
+          <canvas id="telemetry-canvas" width="520" height="220" role="img" aria-label="Interactive illustrative chart of skill progression across three phases"></canvas>
+
+          <input type="range" id="scrubber" class="scrubber" min="0" max="100" value="0" aria-label="Drag to replay progression through Foundations, Building, and Now">
+
+          <div class="telemetry-readout">
+            <div class="readout-item">
+              <span class="readout-label">focus</span>
+              <span class="mono readout-value" id="readout-focus">—</span>
+            </div>
+            <div class="readout-item">
+              <span class="readout-label">signature work</span>
+              <span class="mono readout-value" id="readout-project">—</span>
+            </div>
+          </div>
+          <p class="telemetry-caption">Illustrative — drag to replay how my focus shifted over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="panel-section">
+    <div class="container">
+      <h2 class="section-heading">About</h2>
+      <div class="about-grid">
+        <div class="about-copy reveal reveal-left">
+          <p>I'm a B.Tech Computer Science student at CVR College of Engineering, Hyderabad (Batch 2027), currently maintaining an 8.12 CGPA. Most of my work lives at the intersection of backend systems and applied AI — APIs, data pipelines, and the occasional Chrome extension when a problem is small enough to ship in a weekend.</p>
+          <p>Outside of coursework, I compete on Codeforces, contribute to open-source where I can find a good first issue, and I'm currently building an <a href="#projects">algorithm telemetry engine</a> that visualizes how algorithms actually behave at runtime — part systems project, part competitive-programming obsession.</p>
+        </div>
+        <div class="now-panel panel-frame reveal reveal-right">
+          <span class="mono now-title">// now</span>
+          <ul class="now-list">
+            <li>Preparing for SDE &amp; backend placements</li>
+            <li>Building the Algorithmic Telemetry Engine</li>
+            <li>Solving daily on Codeforces</li>
+            <li>Exploring open-source contributions in ML tooling</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="facts-row">
+        <div class="fact reveal reveal-scale"><span class="mono fact-value">8.12</span><span class="fact-label">CGPA</span></div>
+        <div class="fact reveal reveal-scale"><span class="mono fact-value">2027</span><span class="fact-label">Graduating</span></div>
+        <div class="fact reveal reveal-scale"><span class="mono fact-value">SDE / Backend</span><span class="fact-label">Primary track</span></div>
+        <div class="fact reveal reveal-scale"><span class="mono fact-value">AI / ML</span><span class="fact-label">Secondary track</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="panel-section alt">
+    <div class="container">
+      <h2 class="section-heading">Skills</h2>
+      <p class="section-sub">Tiered honestly — core (daily driver), working (comfortable, shipped with it), exploring (learning now). No made-up percentages.</p>
+
+      <div class="skills-grid" id="skills-grid"><!-- populated by app.js --></div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="panel-section">
+    <div class="container">
+      <h2 class="section-heading">Projects</h2>
+
+      <div class="filter-row" id="filter-row" role="tablist" aria-label="Filter projects by category">
+        <button class="filter-btn is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-btn" data-filter="backend" role="tab" aria-selected="false">Backend</button>
+        <button class="filter-btn" data-filter="ai-ml" role="tab" aria-selected="false">AI / ML</button>
+        <button class="filter-btn" data-filter="tools" role="tab" aria-selected="false">Dev Tools</button>
+      </div>
+
+      <div class="project-grid" id="project-grid"><!-- populated by app.js --></div>
+
+      <div class="more-projects">
+        <span class="mono more-label">// also on GitHub</span>
+        <ul class="more-list" id="more-list"><!-- populated by app.js --></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section id="education" class="panel-section alt">
+    <div class="container">
+      <h2 class="section-heading">Education</h2>
+      <div class="log-entry panel-frame reveal reveal-left">
+        <div class="log-marker" aria-hidden="true"></div>
+        <div class="log-body">
+          <h3 class="log-title">B.Tech, Computer Science</h3>
+          <p class="log-sub">CVR College of Engineering, Hyderabad · Batch 2027</p>
+          <p class="log-detail mono">CGPA 8.12</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GITHUB ============ -->
+  <section id="github" class="panel-section">
+    <div class="container">
+      <h2 class="section-heading">GitHub activity</h2>
+      <!-- EDIT: replace YOUR_GITHUB_USERNAME below (2 places) with your real username -->
+      <p class="section-sub">Live — pulled straight from GitHub once you set your username in <code class="mono">js/app.js</code>.</p>
+      <div class="github-grid">
+        <img class="github-card reveal reveal-scale" src="https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME&show_icons=true&theme=transparent&hide_border=true&title_color=45D6C6&icon_color=F2A93B&text_color=8FA1AC"
+             alt="GitHub stats" loading="lazy"
+             onerror="this.closest('.github-grid').classList.add('github-fallback')">
+        <img class="github-card reveal reveal-scale" src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR_GITHUB_USERNAME&theme=transparent&hide_border=true&background=00000000&ring=45D6C6&fire=F2A93B&currStreakLabel=45D6C6"
+             alt="GitHub streak stats" loading="lazy"
+             onerror="this.closest('.github-grid').classList.add('github-fallback')">
+      </div>
+      <p class="github-fallback-note">Cards will render once <code class="mono">YOUR_GITHUB_USERNAME</code> is replaced with a real GitHub handle.</p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="panel-section alt">
+    <div class="container contact-grid">
+      <div class="reveal reveal-up">
+        <h2 class="section-heading">Contact</h2>
+        <p class="section-sub">Open to SDE / backend internships and full-time roles. Reach out — I reply quickly.</p>
+        <div class="contact-actions">
+          <!-- EDIT: replace with your real email -->
+          <button class="btn btn-primary" id="copy-email" data-email="your.email@example.com">
+            your.email@example.com <span class="mono copy-hint">copy</span>
+          </button>
+          <a class="btn btn-ghost" href="assets/resume.pdf" download>Download résumé ↓</a>
+        </div>
+      </div>
+      <div class="social-links reveal reveal-right">
+        <!-- EDIT: replace href values with your real profiles -->
+        <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://codeforces.com/profile/YOUR_HANDLE" target="_blank" rel="noopener">Codeforces</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="mono">© <span id="year"></span> Nikhil — built from scratch, no template.</span>
+    <span class="mono footer-hint">open devtools console →</span>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
