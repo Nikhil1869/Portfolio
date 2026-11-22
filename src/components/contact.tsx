@@ -63,26 +63,19 @@ export function Contact() {
       return;
     }
 
-    const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
-
-    if (!formId) {
-      setFormStatus("Contact form is not configured.");
-      return;
-    }
+    const formEndpoint = "https://formspree.io/f/xgakpwlj";
 
     setIsSending(true);
 
     try {
-      const response = await fetch(
-        `https://formspree.io/f/${formId}`,
-        {
+      const response = await fetch(formEndpoint, {
           method: "POST",
           body: data,
           headers: {
             Accept: "application/json",
           },
-        }
-      );
+        });
+    
 
       if (!response.ok) {
         const result = await response.json().catch(() => null);
