@@ -72,7 +72,7 @@ export function Contact() {
           <SectionHeading
             number="08"
             label="TEAM RADIO"
-            title="LET’S BUILD SOMETHING THAT MATTERS"
+            title="LET'S CONNECT"
           />
           <p>
             Open to engineering opportunities, open-source collaboration, and

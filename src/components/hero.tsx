@@ -27,9 +27,9 @@ export function Hero({ resumeHref }: { resumeHref?: string }) {
         <div className="hero-copy">
           <div className="hero-kicker">THE DEVELOPER PADDOCK</div>
           <h1 id="hero-title">
-            <span className="hero-line">BUILDING WITH</span>
-            <span className="hero-line">PRECISION.</span>
-            <span className="hero-line headline-red">SHIPPING AT SPEED.</span>
+            <span className="hero-line">TURNING IDEAS</span>{" "}
+            <span className="hero-line">INTO WORKING</span>{" "}
+            <span className="hero-line headline-red">SOFTWARE.</span>
           </h1>
           <div className="hero-person">
             <h2>

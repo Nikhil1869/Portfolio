@@ -16,7 +16,8 @@ export function OpenSource() {
           label="THE PIT CREW"
           title="MY OPEN-SOURCE CONTRIBUTIONS"
         >
-          Good software is a team effort. Here’s where I’ve contributed.
+          I enjoy exploring open-source projects, understanding how they work,
+          and contributing wherever I can.
         </SectionHeading>
         <a className="button button-outline button-small" href={profile.github}>
           <Github size={16} />

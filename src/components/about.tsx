@@ -12,14 +12,14 @@ export function About() {
       <SectionHeading
         number="02"
         label="DRIVER PROFILE"
-        title="BEHIND THE ENGINEERING"
+        title="A LITTLE ABOUT ME"
       />
       <div className="about-layout">
         <div className="about-copy" data-reveal>
           <h3>
-            A curious mind.
+            Curious by nature.{" "}
             <br />
-            An engineer’s approach.
+            Learning by doing.
           </h3>
           <p>
             I’m <strong>Devathi Nikhil Suraj</strong>, a Computer Science and

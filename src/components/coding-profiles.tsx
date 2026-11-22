@@ -20,12 +20,12 @@ export function CodingProfiles() {
         <SectionHeading
           number="07"
           label="THE TIMING BOARD"
-          title="BEYOND THE BUILD"
+          title="BEYOND THE CODE"
         />
         <p className="coding-intro" data-reveal>
-          A different kind of practice. Competitive programming keeps me
-          thinking about algorithms, edge cases, and the tradeoffs behind a
-          solution.
+          I enjoy competitive programming because it challenges me to think
+          through problems, explore different approaches, and improve my
+          problem-solving skills.
         </p>
       </div>
       <div className="timing-board" data-reveal>
