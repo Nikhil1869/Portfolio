@@ -14,7 +14,7 @@ export function OpenSource() {
         <SectionHeading
           number="05"
           label="THE PIT CREW"
-          title="ENGINEERING BEYOND MY OWN CODE"
+          title="MY OPEN-SOURCE CONTRIBUTIONS"
         >
           Good software is a team effort. Here’s where I’ve contributed.
         </SectionHeading>
