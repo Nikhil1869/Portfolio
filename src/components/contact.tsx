@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { profile } from "@/data/portfolio";
 import {
-  createMailto,
   validateContact,
   type ContactErrors,
 } from "@/lib/contact";
@@ -22,6 +21,7 @@ export function Contact() {
   const [copyStatus, setCopyStatus] = useState("");
   const [formStatus, setFormStatus] = useState("");
   const [errors, setErrors] = useState<ContactErrors>({});
+  const [isSending, setIsSending] = useState(false);
   const form = useRef<HTMLFormElement>(null);
 
   async function copyEmail() {
@@ -35,30 +35,82 @@ export function Contact() {
     }
   }
 
-  function submit(event: React.FormEvent<HTMLFormElement>) {
+  
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isSending) return;
+
     const data = new FormData(event.currentTarget);
+
     const fields = {
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       message: String(data.get("message") ?? ""),
     };
+
     const nextErrors = validateContact(fields);
+
     setErrors(nextErrors);
     setFormStatus("");
-    if (Object.keys(nextErrors).length) {
-      requestAnimationFrame(() =>
+
+    if (Object.keys(nextErrors).length > 0) {
+      requestAnimationFrame(() => {
         form.current
           ?.querySelector<HTMLElement>("[aria-invalid=true]")
-          ?.focus(),
-      );
+          ?.focus();
+      });
       return;
     }
-    window.location.href = createMailto(fields, profile.email);
-    setFormStatus(
-      "Your email app has been requested. Review and send the draft there. Nothing has been sent by this website. If no app opens, use the email link.",
-    );
+
+    const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+
+    if (!formId) {
+      setFormStatus("Contact form is not configured.");
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      const response = await fetch(
+        `https://formspree.io/f/${formId}`,
+        {
+          method: "POST",
+          body: data,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => null);
+
+        const reason = result?.errors
+          ?.map((error: { message: string }) => error.message)
+          .join(", ");
+
+        throw new Error(
+          reason || `Unable to send message (${response.status}).`
+        );
+      }
+
+      setFormStatus("Message submitted successfully!");
+      setErrors({});
+      form.current?.reset();
+
+    } catch (error) {
+      setFormStatus(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsSending(false);
+    }
   }
+
 
   return (
     <section
@@ -186,12 +238,16 @@ export function Contact() {
               </span>
             )}
           </div>
-          <button className="button button-primary" type="submit">
-            Send message
+          <button
+            className="button button-primary"
+            type="submit"
+            disabled={isSending}
+          >
+            {isSending ? "Sending..." : "Send message"}
             <Mail size={16} />
           </button>
           <p className="form-note" id="form-note">
-            Opens a draft in your email app. You review and send it.
+            Your message will be sent directly through this form.
           </p>
           <p className="form-status" role="status">
             {formStatus}
