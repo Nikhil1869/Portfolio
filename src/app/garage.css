@@ -211,7 +211,17 @@ html:has(.garage-dialog[open], .mobile-navigation[open]) {
   font-size: 0.75rem;
 }
 
+.car-hotspots {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
 .car-hotspot {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: grid;
   place-items: center;
   width: 44px;
@@ -222,6 +232,12 @@ html:has(.garage-dialog[open], .mobile-navigation[open]) {
   background: #180f13;
   box-shadow: 0 0 0 3px #090a0cbb;
   font: 700 0.8rem var(--mono);
+  pointer-events: auto;
+}
+
+.car-stage:not([data-ready="true"]) .car-hotspot,
+.car-hotspot:not([data-projected]) {
+  visibility: hidden;
 }
 
 .car-hotspot:hover,

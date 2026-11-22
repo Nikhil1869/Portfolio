@@ -1,13 +1,8 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  Environment,
-  Html,
-  Lightformer,
-  OrbitControls,
-} from "@react-three/drei";
-import { useEffect, useRef, type ComponentRef } from "react";
+import { Environment, Lightformer, OrbitControls } from "@react-three/drei";
+import { useEffect, useRef, type ComponentRef, type RefObject } from "react";
 import { Vector3 } from "three";
 import {
   garagePoints,
@@ -20,12 +15,16 @@ const heroPosition = [6.7, 3.95, 6.55] as const;
 const garagePosition = [6.8, 4.05, 6.65] as const;
 const up = new Vector3(0, 1, 0);
 
+export type HotspotRefs = RefObject<
+  Partial<Record<GaragePoint, HTMLButtonElement | null>>
+>;
+
 type SceneProps = {
   garage?: boolean;
   compact: boolean;
   reducedMotion: boolean;
   view: CameraView;
-  onSelect: (id: GaragePoint) => void;
+  hotspots?: HotspotRefs;
   onFailure: () => void;
   onReady: () => void;
 };
@@ -35,7 +34,7 @@ function Camera({
   compact,
   reducedMotion,
   view,
-}: Omit<SceneProps, "onSelect" | "onFailure" | "onReady">) {
+}: Pick<SceneProps, "garage" | "compact" | "reducedMotion" | "view">) {
   const { camera, gl, invalidate } = useThree();
   const controls = useRef<ComponentRef<typeof OrbitControls>>(null);
   const destination = useRef(new Vector3());
@@ -117,7 +116,7 @@ function Camera({
         orbit.target.distanceTo(aim) >
       0.003;
     if (moving.current) invalidate();
-  });
+  }, -0.5);
 
   return (
     <OrbitControls
@@ -143,6 +142,30 @@ function Camera({
   );
 }
 
+function ProjectHotspots({ hotspots }: { hotspots: HotspotRefs }) {
+  const projected = useRef(new Vector3());
+
+  // Run after camera controls. The overlay lives in the page's React tree.
+  useFrame(({ camera, size }) => {
+    camera.updateMatrixWorld();
+    for (const { id, anchor } of garagePoints) {
+      const button = hotspots.current[id];
+      if (!button) continue;
+
+      const { x, y, z } = projected.current.fromArray(anchor).project(camera);
+      const visible = Math.abs(x) <= 1 && Math.abs(y) <= 1 && Math.abs(z) <= 1;
+      button.toggleAttribute("data-projected", visible);
+      if (visible) {
+        const left = ((x + 1) * size.width) / 2;
+        const top = ((1 - y) * size.height) / 2;
+        button.style.transform = `translate3d(${left}px, ${top}px, 0) translate(-50%, -50%)`;
+      }
+    }
+  });
+
+  return null;
+}
+
 function ContextStatus({
   onFailure,
   onReady,
@@ -157,7 +180,7 @@ function ContextStatus({
 }
 
 export default function CarScene(props: SceneProps) {
-  const { garage, compact, view, onSelect, onFailure, onReady } = props;
+  const { garage, compact, hotspots, onFailure, onReady } = props;
   const initial = garage ? garagePosition : heroPosition;
   return (
     <Canvas
@@ -208,28 +231,8 @@ export default function CarScene(props: SceneProps) {
         </Environment>
       )}
       <RacingCar />
-      {garage &&
-        garagePoints.map((point, index) => (
-          <Html
-            key={point.id}
-            center
-            position={point.anchor}
-            zIndexRange={[2, 1]}
-          >
-            <button
-              type="button"
-              className="car-hotspot"
-              aria-label={`Inspect ${point.part.toLowerCase()} hotspot`}
-              aria-pressed={view.point === point.id}
-              tabIndex={-1}
-              onPointerDown={(event) => event.stopPropagation()}
-              onClick={() => onSelect(point.id)}
-            >
-              {index + 1}
-            </button>
-          </Html>
-        ))}
       <Camera {...props} />
+      {hotspots && <ProjectHotspots hotspots={hotspots} />}
       <ContextStatus onFailure={onFailure} onReady={onReady} />
     </Canvas>
   );

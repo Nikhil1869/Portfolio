@@ -24,6 +24,7 @@ import {
   type CameraView,
   type GaragePoint,
 } from "./garage-points";
+import type { HotspotRefs } from "./car-scene";
 
 const CarScene = dynamic(() => import("./car-scene"), { ssr: false });
 const quarterTurn = Math.PI / 4;
@@ -136,12 +137,13 @@ function CarStage({
   reducedMotion: boolean;
   garage?: boolean;
   view: CameraView;
-  onSelect: (id: GaragePoint) => void;
+  onSelect?: (id: GaragePoint) => void;
   onAvailability: (ready: boolean) => void;
   children?: ReactNode;
 }) {
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  const hotspots: HotspotRefs = useRef({});
   const onReady = useCallback(() => setReady(true), []);
   const onFailure = useCallback(() => setFailed(true), []);
   const visible = enabled && ready && !failed;
@@ -165,11 +167,31 @@ function CarStage({
               compact={compact}
               reducedMotion={reducedMotion}
               view={view}
-              onSelect={onSelect}
+              hotspots={garage ? hotspots : undefined}
               onFailure={onFailure}
               onReady={onReady}
             />
           </SceneBoundary>
+        </div>
+      )}
+      {garage && enabled && !failed && onSelect && (
+        <div className="car-hotspots">
+          {garagePoints.map((point, index) => (
+            <button
+              key={point.id}
+              ref={(button) => {
+                hotspots.current[point.id] = button;
+              }}
+              type="button"
+              className="car-hotspot"
+              aria-label={`Inspect ${point.part.toLowerCase()} hotspot`}
+              aria-pressed={view.point === point.id}
+              tabIndex={-1}
+              onClick={() => onSelect(point.id)}
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
       )}
       {enabled && !visible && (
@@ -286,7 +308,6 @@ export function VehicleShowcase({ circuit }: { circuit: ReactNode }) {
         compact={compact}
         reducedMotion={reducedMotion}
         view={heroView}
-        onSelect={selectPoint}
         onAvailability={setHeroReady}
       >
         {circuit}
