@@ -1,0 +1,230 @@
+.preview-switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.preview-switches button,
+.booking-services button {
+  min-height: 32px;
+  border: 1px solid #3d414a;
+  background: #181b21;
+  color: #c0c6d1;
+  padding: 0.2rem 0.48rem;
+  font: 0.6875rem/1.2 var(--mono);
+  transition:
+    border-color 0.18s,
+    color 0.18s,
+    background-color 0.18s;
+}
+
+.preview-switches button[aria-pressed="true"],
+.booking-services button[aria-pressed="true"] {
+  border-color: #a34b46;
+  background: #311c20;
+  color: var(--text);
+}
+
+.preview-switches button:hover,
+.booking-services button:hover {
+  border-color: #d07670;
+  color: var(--text);
+}
+
+.preview-switches button:focus-visible,
+.booking-services button:focus-visible {
+  outline-offset: 1px;
+}
+
+.telemetry-tabs.preview-switches {
+  margin-bottom: 1rem;
+}
+
+.terminal-ui > .preview-switches {
+  margin-top: 0.6rem;
+}
+
+.terminal-ui .terminal-result {
+  margin-top: 0.45rem;
+  font-size: 0.625rem;
+}
+
+.booking-services button {
+  display: flex;
+  flex: 1 1 7rem;
+  align-items: center;
+  gap: 0.35rem;
+  text-align: left;
+  min-height: 44px;
+}
+
+.booking-services button > svg {
+  width: 15px;
+}
+
+.booking-appointment .preview-switches {
+  margin-top: 0.2rem;
+}
+
+.booking-appointment .preview-switches button {
+  min-height: 28px;
+}
+
+.probability-bars i {
+  transition: height 0.28s ease-out;
+}
+
+.project-card:focus-within {
+  transform: none;
+}
+
+.project-card:has(.engineering-details[open]) {
+  transform: none;
+  border-color: #874744;
+}
+
+.project-card .project-visual {
+  height: auto;
+  min-height: 252px;
+}
+
+.project-card .terminal-ui,
+.project-card .prediction-ui {
+  padding: 1rem;
+}
+
+.project-card .booking-ui {
+  height: auto;
+  min-height: 212px;
+}
+
+.project-card .booking-greeting {
+  margin-top: 0;
+}
+
+.project-card .booking-services,
+.project-card .booking-appointment {
+  margin-top: 0.65rem;
+}
+
+.project-card .booking-appointment {
+  align-items: flex-start;
+  padding: 0.5rem;
+}
+
+.section {
+  padding-block: clamp(3.8rem, 7vw, 6.25rem);
+}
+
+.section-heading .eyebrow i {
+  transform-origin: left center;
+}
+
+.about-layout,
+.contact-layout,
+.coding-section {
+  gap: clamp(1.75rem, 6.25vw, 6.25rem);
+}
+
+.profile-panel,
+.timeline-card,
+.toolkit-group,
+.contact-form {
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.timeline-card[open],
+.toolkit-group:has(details[open]),
+.contact-form:focus-within {
+  border-color: #79433f;
+}
+
+.contribution-icon,
+.timing-board > a > svg:last-child {
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.contribution:focus-within .contribution-icon,
+.contribution:hover .contribution-icon,
+.timing-board > a:focus-visible > svg:last-child,
+.timing-board > a:hover > svg:last-child {
+  color: #ff827b;
+}
+
+.contribution .text-link,
+.contact-socials > a {
+  min-height: 44px;
+}
+
+.contact-email .icon-button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.contact-email > a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.scroll-track .lap-value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+.scroll-track .lap-line {
+  filter: drop-shadow(0 0 3px #e1060048);
+}
+
+@media (max-width: 1079px) {
+  .preview-switches button {
+    min-height: 38px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .preview-switches button,
+  .booking-appointment .preview-switches button {
+    min-height: 44px;
+  }
+
+  .project-card .project-visual {
+    min-height: 260px;
+  }
+
+  .project-card .project-visual.visual-f1 {
+    height: auto;
+  }
+
+  .project-card .telemetry-ui {
+    height: auto;
+  }
+
+  .project-card .terminal-result {
+    margin-top: 0.6rem;
+  }
+
+  .timing-board > a {
+    flex-wrap: wrap;
+    column-gap: 0.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero h1 {
+    font-size: clamp(3.125rem, 17.7vw, 4rem);
+  }
+}
+
+@media (max-width: 350px) {
+  .nav-inner .brand > span {
+    display: none;
+  }
+}

@@ -1,0 +1,313 @@
+.vehicle-showcase {
+  position: relative;
+  margin: 0.65rem 0 0.9rem;
+}
+
+.vehicle-toolbar,
+.garage-camera-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vehicle-toolbar {
+  min-height: 44px;
+  margin: 0 0.875rem;
+}
+
+.vehicle-modes,
+.car-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.vehicle-modes button,
+.garage-topics button {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  min-height: 44px;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.vehicle-modes button {
+  padding: 0.5rem 0.7rem;
+  font: 0.75rem var(--mono);
+  color: var(--muted);
+}
+
+.vehicle-modes button:hover,
+.garage-topics button:hover {
+  border-color: #626771;
+}
+
+.vehicle-modes button[aria-pressed="true"],
+.garage-topics button[aria-pressed="true"] {
+  border-color: #a94440;
+  color: var(--text);
+  background: #211517;
+}
+
+.car-controls .icon-button:disabled {
+  opacity: 0.4;
+}
+
+.car-stage {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1.25;
+  overflow: hidden;
+  margin: 0.35rem 0;
+  background:
+    radial-gradient(ellipse at 50% 65%, #2a191c88 0%, transparent 64%),
+    repeating-linear-gradient(0deg, transparent 0 27px, #a5adba0b 28px),
+    repeating-linear-gradient(90deg, transparent 0 27px, #a5adba0b 28px);
+}
+
+.car-stage[data-ready="true"]::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 51% 12% 11%;
+  transform: rotate(-12deg);
+  background: radial-gradient(
+    ellipse,
+    #020204 2%,
+    #08090bb0 45%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.car-stage-fallback,
+.car-render {
+  position: absolute;
+  inset: 0;
+}
+
+.car-stage-fallback {
+  display: grid;
+  place-items: center;
+  transition: opacity 0.26s;
+}
+
+.car-stage-fallback .circuit-stage {
+  width: 100%;
+  margin: 0;
+}
+
+.car-stage[data-ready="true"] .car-stage-fallback {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.car-render {
+  touch-action: pan-y;
+}
+
+.vehicle-showcase > .car-stage .car-render > div,
+.vehicle-showcase > .car-stage .car-render canvas {
+  touch-action: pan-y !important;
+}
+
+.car-render canvas {
+  cursor: grab;
+}
+
+.car-render canvas:active {
+  cursor: grabbing;
+}
+
+.car-stage-status {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 0.65rem;
+  z-index: 3;
+  margin: 0;
+  padding: 0.3rem 0.55rem;
+  background: var(--bg);
+  color: var(--text);
+  font: 0.75rem/1.5 var(--mono);
+  pointer-events: none;
+}
+
+.garage-entry {
+  margin: 0 0.875rem;
+}
+
+.garage-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(66rem, calc(100% - 2rem));
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid #3e414a;
+}
+
+.garage-dialog::backdrop {
+  background: #020306df;
+}
+
+html:has(.garage-dialog[open], .mobile-navigation[open]) {
+  overflow: hidden;
+}
+
+.garage-inner {
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+
+.garage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.9rem;
+}
+
+.garage-header h2 {
+  margin: 0.25rem 0 0;
+  font: 700 clamp(2rem, 4vw, 3rem)/1 var(--display);
+}
+
+.garage-header .button {
+  min-height: 44px;
+}
+
+.garage-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(14rem, 1fr);
+  gap: 1.25rem;
+  padding-top: 1rem;
+}
+
+.garage-visual,
+.garage-notes {
+  min-width: 0;
+}
+
+.garage-visual .car-stage {
+  margin: 0;
+  border: 1px solid var(--line);
+  aspect-ratio: 1.5;
+}
+
+.garage-visual .car-render > div {
+  touch-action: none;
+}
+
+.garage-camera-bar {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.car-hotspot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ff6a64;
+  color: var(--text);
+  background: #180f13;
+  box-shadow: 0 0 0 3px #090a0cbb;
+  font: 700 0.8rem var(--mono);
+}
+
+.car-hotspot:hover,
+.car-hotspot[aria-pressed="true"] {
+  background: #9c2526;
+}
+
+.garage-topics {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.garage-topics button {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.15rem 0.5rem;
+  align-items: center;
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+}
+
+.garage-topics button > span {
+  grid-row: span 2;
+  color: #ff827b;
+  font: 0.8rem var(--mono);
+}
+
+.garage-topics small {
+  font-size: 0.75rem;
+  color: #b9bdc6;
+}
+
+.garage-point-detail {
+  min-height: 9rem;
+  padding: 1rem 0 0;
+}
+
+.garage-point-detail h3 {
+  margin-bottom: 0.3rem;
+  font: 600 1.5rem var(--display);
+}
+
+.garage-point-detail p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .vehicle-toolbar,
+  .garage-entry {
+    margin-inline: 0;
+  }
+
+  .garage-dialog {
+    width: calc(100% - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+
+  .garage-content {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .garage-topics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .garage-topics button {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+    font-size: 0.8125rem;
+  }
+
+  .garage-topics button > span {
+    grid-row: auto;
+  }
+
+  .garage-point-detail {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car-stage-fallback,
+  .vehicle-modes button,
+  .garage-topics button {
+    transition: none;
+  }
+}

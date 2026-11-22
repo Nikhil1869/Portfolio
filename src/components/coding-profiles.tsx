@@ -13,6 +13,7 @@ export function CodingProfiles() {
   return (
     <section
       className="section coding-section"
+      id="coding"
       aria-labelledby="section-07-title"
     >
       <div>
@@ -21,7 +22,7 @@ export function CodingProfiles() {
           label="THE TIMING BOARD"
           title="BEYOND THE BUILD"
         />
-        <p className="coding-intro">
+        <p className="coding-intro" data-reveal>
           A different kind of practice. Competitive programming keeps me
           thinking about algorithms, edge cases, and the tradeoffs behind a
           solution.

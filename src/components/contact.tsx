@@ -81,6 +81,7 @@ export function Contact() {
           <div className="contact-email">
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
             <button
+              type="button"
               className="icon-button"
               onClick={copyEmail}
               aria-label="Copy email address"
@@ -116,7 +117,13 @@ export function Contact() {
             </a>
           </div>
         </div>
-        <form ref={form} className="contact-form" onSubmit={submit} noValidate>
+        <form
+          ref={form}
+          className="contact-form"
+          onSubmit={submit}
+          noValidate
+          data-reveal
+        >
           <div className="form-heading">
             <Mail size={19} />
             <span>START A CONVERSATION</span>

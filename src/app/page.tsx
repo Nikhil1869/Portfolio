@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import path from "node:path";
 import { Navigation } from "@/components/navigation";
 import { Motion } from "@/components/motion";
@@ -15,9 +15,12 @@ import { profile } from "@/data/portfolio";
 import { siteOrigin } from "@/lib/site";
 
 export default function Home() {
-  const resumeAvailable = existsSync(
-    path.join(process.cwd(), "public", "resume.pdf"),
+  const resumeFile = readdirSync(path.join(process.cwd(), "public")).find(
+    (file) => file.toLowerCase() === "resume.pdf",
   );
+  const resumeHref = resumeFile
+    ? `/${encodeURIComponent(resumeFile)}`
+    : undefined;
   const person = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -40,10 +43,10 @@ export default function Home() {
           __html: JSON.stringify(person).replace(/</g, "\\u003c"),
         }}
       />
-      <Navigation resumeAvailable={resumeAvailable} />
+      <Navigation resumeHref={resumeHref} />
       <Motion />
       <main id="main" tabIndex={-1}>
-        <Hero resumeAvailable={resumeAvailable} />
+        <Hero resumeHref={resumeHref} />
         <About />
         <Experience />
         <Projects />

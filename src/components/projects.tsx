@@ -91,6 +91,7 @@ export function Projects() {
               <details className="engineering-details">
                 <summary>
                   View engineering details
+                  <span className="sr-only"> for {project.title}</span>
                   <Plus size={17} />
                 </summary>
                 <div className="case-study">

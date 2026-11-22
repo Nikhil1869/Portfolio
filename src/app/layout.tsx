@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { siteOrigin } from "@/lib/site";
 import "./globals.css";
+import "./garage.css";
+import "./showcase.css";
 
 const inter = localFont({
   src: [

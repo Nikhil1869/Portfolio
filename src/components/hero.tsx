@@ -1,9 +1,10 @@
 import { Github, MapPin, ChevronDown } from "lucide-react";
 import { Circuit } from "./circuit";
 import { ResumeLink } from "./ui";
+import { VehicleShowcase } from "./vehicle-showcase";
 import { profile } from "@/data/portfolio";
 
-export function Hero({ resumeAvailable }: { resumeAvailable: boolean }) {
+export function Hero({ resumeHref }: { resumeHref?: string }) {
   return (
     <section
       id="home"
@@ -51,7 +52,7 @@ export function Hero({ resumeAvailable }: { resumeAvailable: boolean }) {
                 ///
               </span>
             </a>
-            <ResumeLink available={resumeAvailable} />
+            <ResumeLink href={resumeHref} />
             <a
               className="icon-button"
               href={profile.github}
@@ -72,12 +73,16 @@ export function Hero({ resumeAvailable }: { resumeAvailable: boolean }) {
             <span>NS / ENGINEERING CIRCUIT</span>
             <span className="red">REV. 01</span>
           </div>
-          <div className="circuit-stage">
-            <div className="circuit-watermark">NS</div>
-            <Circuit />
-            <div className="circuit-cross cross-one">+</div>
-            <div className="circuit-cross cross-two">+</div>
-          </div>
+          <VehicleShowcase
+            circuit={
+              <div className="circuit-stage">
+                <div className="circuit-watermark">NS</div>
+                <Circuit />
+                <div className="circuit-cross cross-one">+</div>
+                <div className="circuit-cross cross-two">+</div>
+              </div>
+            }
+          />
           <div className="circuit-bottom">
             <div>
               <span>THE PROCESS</span>

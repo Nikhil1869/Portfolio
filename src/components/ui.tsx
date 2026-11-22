@@ -47,24 +47,20 @@ export function SectionHeading({
 }
 
 export function ResumeLink({
-  available,
+  href,
   className = "button button-outline",
 }: {
-  available: boolean;
+  href?: string;
   className?: string;
 }) {
   return (
     <a
       className={className}
-      href={
-        available
-          ? "/resume.pdf"
-          : `mailto:${profile.email}?subject=Resume%20request`
-      }
-      download={available || undefined}
+      href={href ?? `mailto:${profile.email}?subject=Resume%20request`}
+      download={href ? true : undefined}
     >
-      {available ? <Download size={16} /> : <FileText size={16} />}
-      {available ? "Download resume" : "Request resume"}
+      {href ? <Download size={16} /> : <FileText size={16} />}
+      {href ? "Download resume" : "Request resume"}
     </a>
   );
 }

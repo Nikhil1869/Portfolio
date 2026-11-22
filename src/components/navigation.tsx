@@ -14,11 +14,12 @@ export const navigation = [
   ["contact", "Contact"],
 ] as const;
 
-export function Navigation({ resumeAvailable }: { resumeAvailable: boolean }) {
+export function Navigation({ resumeHref }: { resumeHref?: string }) {
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const destination = useRef<string | null>(null);
 
   useEffect(() => {
     let frame = 0;
@@ -47,17 +48,12 @@ export function Navigation({ resumeAvailable }: { resumeAvailable: boolean }) {
 
   useEffect(() => {
     if (!open) return;
-    const oldOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     const desktop = window.matchMedia("(min-width: 1080px)");
     const onResize = () => {
       if (desktop.matches) dialog.current?.close();
     };
     desktop.addEventListener("change", onResize);
-    return () => {
-      document.body.style.overflow = oldOverflow;
-      desktop.removeEventListener("change", onResize);
-    };
+    return () => desktop.removeEventListener("change", onResize);
   }, [open]);
 
   function close() {
@@ -78,17 +74,21 @@ export function Navigation({ resumeAvailable }: { resumeAvailable: boolean }) {
       first?.focus();
     }
   }
-  function goTo(id: string) {
-    close();
-    requestAnimationFrame(() => {
-      const section = document.getElementById(id);
-      section?.focus({ preventScroll: true });
-      section?.scrollIntoView({
-        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-      });
-    });
+  function afterClose() {
+    setOpen(false);
+    const id = destination.current;
+    destination.current = null;
+    const section = id ? document.getElementById(id) : null;
+    if (!section) {
+      trigger.current?.focus({ preventScroll: true });
+      return;
+    }
+    const hash = `#${id}`;
+    if (window.location.hash !== hash) window.history.pushState(null, "", hash);
+    section.focus({ preventScroll: true });
+    // Drawer dismissal can change the document width and refresh ScrollTrigger.
+    // Land on the section immediately so that refresh cannot cancel the jump.
+    section.scrollIntoView({ behavior: "instant" });
   }
 
   return (
@@ -119,7 +119,7 @@ export function Navigation({ resumeAvailable }: { resumeAvailable: boolean }) {
           </nav>
           <div className="nav-resume">
             <ResumeLink
-              available={resumeAvailable}
+              href={resumeHref}
               className="button button-small button-outline"
             />
           </div>
@@ -144,10 +144,7 @@ export function Navigation({ resumeAvailable }: { resumeAvailable: boolean }) {
         className="mobile-navigation"
         aria-label="Navigation"
         onKeyDown={containFocus}
-        onClose={() => {
-          setOpen(false);
-          trigger.current?.focus();
-        }}
+        onClose={afterClose}
         onClick={(e) => {
           if (e.target === dialog.current) close();
         }}
@@ -170,14 +167,25 @@ export function Navigation({ resumeAvailable }: { resumeAvailable: boolean }) {
                 key={id}
                 href={`#${id}`}
                 aria-current={active === id ? "location" : undefined}
-                onClick={() => goTo(id)}
+                onClick={(event) => {
+                  if (
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  )
+                    return;
+                  event.preventDefault();
+                  destination.current = id;
+                  close();
+                }}
               >
                 <span>0{index + 1}</span>
                 {label}
               </a>
             ))}
           </nav>
-          <ResumeLink available={resumeAvailable} />
+          <ResumeLink href={resumeHref} />
         </div>
       </dialog>
     </>

@@ -1,6 +1,6 @@
 # The Developer Paddock
 
-An original motorsport-inspired portfolio for **Devathi Nikhil Suraj**. The visual language combines condensed typography, an original NS monogram, an SVG engineering circuit, restrained red accents, and interface studies of four real projects. No official F1 branding, racing photographs, third-party layouts, or 3D assets are used.
+An original motorsport-inspired portfolio for **Devathi Nikhil Suraj**. The visual language combines condensed typography, an original NS monogram, an SVG engineering circuit, a 3D open-wheel race car, restrained red accents, and interactive previews of four projects.
 
 ## Run locally
 
@@ -24,7 +24,7 @@ npm start
 
 ## Stack and structure
 
-- Next.js App Router, TypeScript, Tailwind CSS 4, GSAP/ScrollTrigger, Lucide React.
+- Next.js App Router, TypeScript, Tailwind CSS 4, GSAP/ScrollTrigger, Three.js, React Three Fiber, Drei, and Lucide React.
 - `src/app/`: server-rendered composition, shared design tokens/styles, SEO metadata, sitemap, robots, and 404 page.
 - `src/components/`: reusable section components and original CSS/SVG project graphics. Interactive islands handle filters, navigation, contact, and optional motion.
 - `src/data/portfolio.ts`: typed project data, source links, case studies, contributions, skills, and profile details.
@@ -35,11 +35,11 @@ npm start
 
 Update `src/data/portfolio.ts` to change projects, technologies, URLs, or case studies. Add an optional `image: { src: "/projects/example.webp", alt: "…" }` to replace a project's illustrative graphic with an authentic screenshot. Add `demo` only after verifying the deployment works. Project categories use a typed union; change the category list when adding a new category.
 
-The palette, fonts, spacing, and responsive behavior live in `src/app/globals.css`. The circuit is original SVG in `src/components/circuit.tsx`. There is no WebGL, Canvas rendering loop, or animation engine beyond GSAP. Motion initializes in a React effect, respects reduced motion, and cleans up on unmount. The scroll marker follows the actual page progress, including layout changes after filtering or expanding details.
+The base styles live in `src/app/globals.css`. The original car model is in `src/components/racing-car.tsx`. The 3D view loads separately and renders on demand. Visitors can use the circuit map and read the garage notes on devices without WebGL. Scroll and camera transitions respect reduced-motion preferences.
 
 ### Resume
 
-Place the **actual** resume PDF at `public/resume.pdf` and rebuild. The server component checks file availability at build time. Until then, both resume actions honestly offer an email request; no fake PDF or broken download is provided.
+Replace `public/Resume.pdf` with the current resume and rebuild. The download uses the filename in the repository, including its letter case. If the PDF is absent, the resume action opens an email request.
 
 ### Contact
 
@@ -52,7 +52,7 @@ If a delivery provider is added later, remove static export mode, implement a se
 1. Push this project to a Git repository and import it into Vercel.
 2. Select the Next.js framework preset and Node.js 24. Use `npm ci` and `npm run build`; the static output directory is `out`.
 3. Set `NEXT_PUBLIC_SITE_URL` to your canonical public HTTPS origin, without a path (for example, your custom domain). Rebuild whenever the origin changes. Vercel's production domain is used automatically if the variable is absent.
-4. Add `public/resume.pdf` before deployment if downloads should be enabled.
+4. Verify that `public/Resume.pdf` is the resume you want to publish.
 5. Deploy. Verify the generated sitemap, canonical URL, Open Graph image, and contact links at your production origin.
 
 No account credentials are included in the repository. The optional ignored `.env.production.local` is for the local Sites build; use your own Vercel environment settings when deploying there. The same `out/` directory can also be deployed to any static host.
